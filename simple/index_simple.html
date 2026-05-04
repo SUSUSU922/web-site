@@ -18,10 +18,24 @@
         </p>
       </header>
 
+      <!-- 条件メニューを開くボタンです -->
+      <button id="open-menu-button" class="menu-button" type="button" aria-controls="filter-menu" aria-expanded="false">
+        ☰ 条件で探す
+      </button>
+
+      <!-- メニューが開いている時に、背景を暗くするための箱です -->
+      <div id="menu-overlay" class="menu-overlay"></div>
+
       <!-- ここに条件ボタンを表示します -->
-      <section class="filter-area" aria-labelledby="filter-title">
+      <section id="filter-menu" class="filter-area" aria-labelledby="filter-title">
         <div class="section-title">
           <h2 id="filter-title">条件で探す</h2>
+          <button id="close-menu-button" class="close-button" type="button" aria-label="条件メニューを閉じる">
+            ×
+          </button>
+        </div>
+
+        <div class="section-title">
           <button id="show-all-button" class="reset-button" type="button">
             すべて表示
           </button>

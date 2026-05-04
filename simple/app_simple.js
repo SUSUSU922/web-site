@@ -274,6 +274,47 @@ function renderProducts(products) {
   productList.innerHTML = products.map(createProductCard).join("");
 }
 
+// 条件メニューを開く関数です
+function openMenu() {
+  const filterMenu = document.getElementById("filter-menu");
+  const menuOverlay = document.getElementById("menu-overlay");
+  const openMenuButton = document.getElementById("open-menu-button");
+
+  filterMenu.classList.add("open");
+  menuOverlay.classList.add("open");
+  document.body.classList.add("menu-open");
+  openMenuButton.setAttribute("aria-expanded", "true");
+}
+
+// 条件メニューを閉じる関数です
+function closeMenu() {
+  const filterMenu = document.getElementById("filter-menu");
+  const menuOverlay = document.getElementById("menu-overlay");
+  const openMenuButton = document.getElementById("open-menu-button");
+
+  filterMenu.classList.remove("open");
+  menuOverlay.classList.remove("open");
+  document.body.classList.remove("menu-open");
+  openMenuButton.setAttribute("aria-expanded", "false");
+}
+
+// 条件メニューの開く・閉じるボタンを使えるようにする関数です
+function setupMenu() {
+  const openMenuButton = document.getElementById("open-menu-button");
+  const closeMenuButton = document.getElementById("close-menu-button");
+  const menuOverlay = document.getElementById("menu-overlay");
+
+  openMenuButton.addEventListener("click", openMenu);
+  closeMenuButton.addEventListener("click", closeMenu);
+  menuOverlay.addEventListener("click", closeMenu);
+
+  document.addEventListener("keydown", function (event) {
+    if (event.key === "Escape") {
+      closeMenu();
+    }
+  });
+}
+
 // 「すべて表示」ボタンが押された時の処理です
 function setupShowAllButton() {
   const showAllButton = document.getElementById("show-all-button");
@@ -293,6 +334,7 @@ async function loadProducts() {
 
 // 最初に実行する処理です
 async function init() {
+  setupMenu();
   renderFilterButtons();
   setupShowAllButton();
 
