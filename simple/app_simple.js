@@ -1,8 +1,8 @@
 // products_simple.jsonから読み込んだ商品を入れておく箱です
 let allProducts = [];
 
-// 今選ばれている条件を覚えておくための変数です
-let selectedFilter = null;
+// 今選ばれている条件を覚えておくための配列です
+let selectedFilters = [];
 
 // 画面に表示する条件ボタンの一覧です
 const filterGroups = [
@@ -175,10 +175,7 @@ function renderFilterButtons() {
       button.dataset.value = value;
 
       button.addEventListener("click", function () {
-        selectedFilter = {
-          key: group.key,
-          value: value,
-        };
+        toggleFilter(group.key, value);
 
         updateActiveButton();
         renderProducts(getFilteredProducts());
@@ -193,27 +190,62 @@ function renderFilterButtons() {
   });
 }
 
+// 条件ボタンを押した時に、選択と解除を切り替える関数です
+function toggleFilter(key, value) {
+  const filter = {
+    key: key,
+    value: value,
+  };
+
+  if (filterIsSelected(filter)) {
+    removeFilter(filter);
+  } else {
+    selectedFilters.push(filter);
+  }
+}
+
+// その条件がすでに選ばれているかを調べる関数です
+function filterIsSelected(filter) {
+  return selectedFilters.some(function (selectedFilter) {
+    return selectedFilter.key === filter.key && selectedFilter.value === filter.value;
+  });
+}
+
+// 選ばれている条件から、指定された条件だけを外す関数です
+function removeFilter(filter) {
+  selectedFilters = selectedFilters.filter(function (selectedFilter) {
+    const isSameFilter =
+      selectedFilter.key === filter.key && selectedFilter.value === filter.value;
+
+    return isSameFilter === false;
+  });
+}
+
 // 選ばれているボタンだけ見た目を変える関数です
 function updateActiveButton() {
   const filterButtons = document.querySelectorAll(".filter-button");
   const showAllButton = document.getElementById("show-all-button");
 
   filterButtons.forEach(function (button) {
-    const isActive =
-      selectedFilter !== null &&
-      button.dataset.key === selectedFilter.key &&
-      button.dataset.value === selectedFilter.value;
+    const filter = {
+      key: button.dataset.key,
+      value: button.dataset.value,
+    };
+
+    const isActive = filterIsSelected(filter);
 
     button.classList.toggle("active", isActive);
   });
 
-  showAllButton.classList.toggle("active", selectedFilter === null);
+  showAllButton.classList.toggle("active", selectedFilters.length === 0);
 }
 
-// 条件に合う商品だけを選ぶ関数です
+// 選ばれている条件すべてに合う商品だけを選ぶ関数です
 function getFilteredProducts() {
   return allProducts.filter(function (product) {
-    return productMatchesFilter(product, selectedFilter);
+    return selectedFilters.every(function (selectedFilter) {
+      return productMatchesFilter(product, selectedFilter);
+    });
   });
 }
 
@@ -271,7 +303,7 @@ function setupShowAllButton() {
   const showAllButton = document.getElementById("show-all-button");
 
   showAllButton.addEventListener("click", function () {
-    selectedFilter = null;
+    selectedFilters = [];
     updateActiveButton();
     renderProducts(allProducts);
   });
