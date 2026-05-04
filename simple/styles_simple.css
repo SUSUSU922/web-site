@@ -179,11 +179,13 @@ h2 {
 
 /* 販売サイトへ移動するリンクです */
 .product-link {
-  display: inline-block;
+  display: block;
+  width: 100%;
   padding: 10px 16px;
   margin-top: 18px;
   color: #ffffff;
   font-weight: bold;
+  text-align: center;
   text-decoration: none;
   background: var(--green-color);
   border-radius: 6px;
