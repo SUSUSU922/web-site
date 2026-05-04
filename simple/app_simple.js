@@ -42,11 +42,6 @@ const filterGroups = [
     values: ["豆", "粉"],
   },
   {
-    title: "内容量",
-    key: "volume",
-    values: ["100g", "200g", "500g以上"],
-  },
-  {
     title: "認証",
     key: "certification",
     values: ["有機JAS", "フェアトレード"],
@@ -81,10 +76,6 @@ function productMatchesFilter(product, filter) {
     return true;
   }
 
-  if (filter.key === "volume") {
-    return productMatchesVolume(product, filter.value);
-  }
-
   if (filter.key === "caffeine_removal_rate") {
     return productMatchesRate(product, filter.value);
   }
@@ -111,25 +102,6 @@ function splitProductValue(productValue) {
 // 「浅煎り(ミディアムロースト以下)」を「浅煎り」にする関数です
 function removeTextInParentheses(text) {
   return String(text).replace(/\(.+\)/, "");
-}
-
-// 内容量の条件だけ、100gなどの文字と数字を比べる必要があります
-function productMatchesVolume(product, filterValue) {
-  const volume = Number(product.volume);
-
-  if (filterValue === "100g") {
-    return volume === 100;
-  }
-
-  if (filterValue === "200g") {
-    return volume === 200;
-  }
-
-  if (filterValue === "500g以上") {
-    return volume >= 500;
-  }
-
-  return false;
 }
 
 // 除去率の条件は「99%以上」のような文字から数字を取り出して比べます
