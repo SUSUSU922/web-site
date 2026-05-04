@@ -177,6 +177,22 @@ h2 {
   margin: 0;
 }
 
+/* 販売サイトへ移動するリンクです */
+.product-link {
+  display: inline-block;
+  padding: 10px 16px;
+  margin-top: 18px;
+  color: #ffffff;
+  font-weight: bold;
+  text-decoration: none;
+  background: var(--green-color);
+  border-radius: 6px;
+}
+
+.product-link:hover {
+  background: #244b24;
+}
+
 /* 商品が見つからない時の表示です */
 .empty-message {
   padding: 24px;

@@ -251,6 +251,10 @@ function createProductCard(product) {
           <dd>${escapeHtml(product.flavor_category)}</dd>
         </div>
       </dl>
+
+      <a class="product-link" href="${escapeHtml(product.url)}" target="_blank" rel="noopener">
+        販売サイトを見る
+      </a>
     </article>
   `;
 }
