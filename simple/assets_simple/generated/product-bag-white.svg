@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 180 220" role="img" aria-label="デカフェコーヒー商品">
+  <rect width="180" height="220" fill="none"/>
+  <path d="M43 22h94l12 176c1 13-8 20-21 20H52c-13 0-22-7-21-20L43 22Z" fill="#f7f2e9"/>
+  <path d="M43 22h94l-6 22H49l-6-22Z" fill="#e5ded3"/>
+  <rect x="56" y="58" width="68" height="90" fill="#fffdf8"/>
+  <rect x="66" y="114" width="48" height="13" rx="2" fill="#2d211b"/>
+  <rect x="72" y="135" width="36" height="5" rx="2.5" fill="#d8961d"/>
+  <path d="M70 78h40M66 90h48M72 102h36" stroke="#4d4038" stroke-width="3" opacity=".38"/>
+</svg>
