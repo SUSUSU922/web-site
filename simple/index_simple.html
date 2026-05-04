@@ -3,11 +3,42 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Decaf Search</title>
-    <link rel="stylesheet" href="styles.css?v=6" />
+    <title>Decaf Search Simple</title>
+    <link rel="stylesheet" href="styles_simple.css" />
   </head>
   <body>
-    <div id="site"></div>
-    <script src="app.js?v=6"></script>
+    <!-- ページ全体を入れる大きな箱です -->
+    <main class="page">
+      <!-- ここにサイトのタイトルと説明を書きます -->
+      <header class="hero">
+        <p class="logo">Decaf Search</p>
+        <h1>デカフェコーヒーを条件で探す</h1>
+        <p>
+          下の条件ボタンを押すと、products_simple.json の商品から
+          条件に合うものだけを表示します。
+        </p>
+      </header>
+
+      <!-- ここに条件ボタンを表示します -->
+      <section class="filter-area" aria-labelledby="filter-title">
+        <div class="section-title">
+          <h2 id="filter-title">条件で探す</h2>
+          <button id="show-all-button" class="reset-button" type="button">
+            すべて表示
+          </button>
+        </div>
+
+        <!-- JavaScriptがこの中に条件ボタンを作ります -->
+        <div id="filter-buttons"></div>
+      </section>
+
+      <!-- ここに検索結果の件数を表示します -->
+      <p id="result-count" class="result-count">読み込み中...</p>
+
+      <!-- ここに商品一覧を表示します -->
+      <section id="product-list" class="product-list" aria-label="商品一覧"></section>
+    </main>
+
+    <script src="app_simple.js"></script>
   </body>
 </html>
