@@ -89,8 +89,28 @@ function productMatchesFilter(product, filter) {
     return productMatchesRate(product, filter.value);
   }
 
-  const productValue = String(product[filter.key] || "");
-  return productValue.includes(filter.value);
+  return productHasExactValue(product[filter.key], filter.value);
+}
+
+// 「浅煎り」と「中浅煎り」を別物として比べるための関数です
+function productHasExactValue(productValue, filterValue) {
+  const values = splitProductValue(productValue);
+
+  return values.includes(filterValue);
+}
+
+// 「チョコ/ フルーティ」のような文字を、1つずつの条件に分ける関数です
+function splitProductValue(productValue) {
+  return String(productValue || "")
+    .split("/")
+    .map(function (value) {
+      return removeTextInParentheses(value).trim();
+    });
+}
+
+// 「浅煎り(ミディアムロースト以下)」を「浅煎り」にする関数です
+function removeTextInParentheses(text) {
+  return String(text).replace(/\(.+\)/, "");
 }
 
 // 内容量の条件だけ、100gなどの文字と数字を比べる必要があります
@@ -117,7 +137,7 @@ function productMatchesRate(product, filterValue) {
   const productRate = getFirstNumber(product.caffeine_removal_rate);
   const filterRate = getFirstNumber(filterValue);
 
-  return productRate >= filterRate;
+  return productRate === filterRate;
 }
 
 // 文字の中から最初に出てくる数字を取り出す関数です
